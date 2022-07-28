@@ -1,0 +1,108 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cm}{\PYGZob{}\PYGZhy{}\PYGZsh{} LANGUAGE TemplateHaskell, FlexibleContexts, ViewPatterns \PYGZsh{}\PYGZhy{}\PYGZcb{}}
+\PYG{c+cm}{\PYGZob{}\PYGZhy{}\PYGZsh{} OPTIONS\PYGZus{}GHC \PYGZhy{}Wno\PYGZhy{}orphans \PYGZsh{}\PYGZhy{}\PYGZcb{}}
+\PYG{k+kr}{module} \PYG{n+nn}{Main} \PYG{k+kr}{where}
+
+\PYG{k+kr}{import} \PYG{n+nn}{Plugin.InversionPlugin}
+
+\PYG{k+kr}{import} \PYG{n+nn}{Simulation}
+\PYG{k+kr}{import} \PYG{n+nn}{Compression}
+\PYG{k+kr}{import} \PYG{n+nn}{PartialInverses}
+\PYG{k+kr}{import} \PYG{n+nn}{Criterion.Main}
+\PYG{k+kr}{import} \PYG{n+nn}{Criterion.Types}
+
+\PYG{k+kr}{import} \PYG{n+nn}{Prelude} \PYG{k}{hiding} \PYG{p}{(}\PYG{n+nf}{map}\PYG{p}{,} \PYG{n+nf}{lookup}\PYG{p}{,} \PYG{p}{(}\PYG{o}{++}\PYG{p}{),} \PYG{n+nf}{last}\PYG{p}{)}
+
+\PYG{n+nf}{main} \PYG{o+ow}{::} \PYG{k+kt}{IO} \PYG{n+nb}{()}
+\PYG{n+nf}{main} \PYG{o+ow}{=} \PYG{k+kr}{do}
+  \PYG{n}{putStrLn} \PYG{l+s}{\PYGZdq{}Benchmarking automatically generated Inverses\PYGZdq{}}
+  \PYG{n}{defaultMainWith}
+    \PYG{p}{(}\PYG{n}{defaultConfig} \PYG{p}{\PYGZob{}}\PYG{n}{reportFile} \PYG{o+ow}{=} \PYG{k+kt}{Just} \PYG{l+s}{\PYGZdq{}benchmarks.html\PYGZdq{}}\PYG{p}{,}
+                    \PYG{n}{csvFile} \PYG{o+ow}{=} \PYG{k+kt}{Just} \PYG{l+s}{\PYGZdq{}benchmark\PYGZhy{}inverses.csv\PYGZdq{}}\PYG{p}{\PYGZcb{})} \PYG{o}{\PYGZdl{}}
+    \PYG{p}{[}\PYG{n}{bgroup} \PYG{l+s}{\PYGZdq{}removeAt1\PYGZdq{}} \PYG{p}{[} \PYG{n}{bench} \PYG{l+s}{\PYGZdq{}4 [1,2,3,4,5,6]\PYGZdq{}}
+                          \PYG{o}{\PYGZdl{}} \PYG{n}{nf} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{take} \PYG{l+m+mi}{1} \PYG{p}{(}\PYG{n}{removeAt1} \PYG{l+m+mi}{4} \PYG{n}{x}\PYG{p}{))} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{,}\PYG{l+m+mi}{5}\PYG{p}{,}\PYG{l+m+mi}{6}\PYG{p}{],}
+                          \PYG{n}{bench} \PYG{l+s}{\PYGZdq{}0 [3,2,1]\PYGZdq{}}
+                          \PYG{o}{\PYGZdl{}} \PYG{n}{nf} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{take} \PYG{l+m+mi}{1} \PYG{p}{(}\PYG{n}{removeAt1} \PYG{l+m+mi}{0} \PYG{n}{x}\PYG{p}{))} \PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{],}
+                          \PYG{n}{bench} \PYG{l+s}{\PYGZdq{}50 [0..300]\PYGZdq{}}
+                          \PYG{o}{\PYGZdl{}} \PYG{n}{nf} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{take} \PYG{l+m+mi}{1} \PYG{p}{(}\PYG{n}{removeAt1} \PYG{l+m+mi}{50} \PYG{n}{x}\PYG{p}{))} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{o}{..}\PYG{l+m+mi}{300}\PYG{p}{]}
+                        \PYG{p}{],}
+     \PYG{n}{bgroup} \PYG{l+s}{\PYGZdq{}removeAt1Manual\PYGZdq{}} \PYG{p}{[} \PYG{n}{bench} \PYG{l+s}{\PYGZdq{}4 [1,2,3,4,5,6]\PYGZdq{}}
+                                \PYG{o}{\PYGZdl{}} \PYG{n}{nf} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{removeAt1Manual} \PYG{l+m+mi}{4} \PYG{n}{x}\PYG{p}{)} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{,}\PYG{l+m+mi}{5}\PYG{p}{,}\PYG{l+m+mi}{6}\PYG{p}{],}
+                                \PYG{n}{bench} \PYG{l+s}{\PYGZdq{}0 [3,2,1]\PYGZdq{}}
+                                \PYG{o}{\PYGZdl{}} \PYG{n}{nf} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{removeAt1Manual} \PYG{l+m+mi}{0} \PYG{n}{x}\PYG{p}{)} \PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{],}
+                                \PYG{n}{bench} \PYG{l+s}{\PYGZdq{}50 [0..300]\PYGZdq{}}
+                                \PYG{o}{\PYGZdl{}} \PYG{n}{nf} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{removeAt1Manual} \PYG{l+m+mi}{50} \PYG{n}{x}\PYG{p}{)} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{o}{..}\PYG{l+m+mi}{300}\PYG{p}{]}
+                        \PYG{p}{],}
+     \PYG{n}{bgroup} \PYG{l+s}{\PYGZdq{}runLengthDecoder\PYGZdq{}} \PYG{p}{[} \PYG{n}{bench} \PYG{l+s}{\PYGZdq{}[1,5]\PYGZdq{}} \PYG{o}{\PYGZdl{}}
+                                 \PYG{n}{nf} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{take} \PYG{l+m+mi}{1} \PYG{p}{(}\PYG{n}{runLengthDecoder} \PYG{n}{x}\PYG{p}{))} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{5}\PYG{p}{],}
+                                 \PYG{n}{bench} \PYG{l+s}{\PYGZdq{}[1,5,2,2,3,3]\PYGZdq{}} \PYG{o}{\PYGZdl{}}
+                                 \PYG{n}{nf} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{take} \PYG{l+m+mi}{1} \PYG{p}{(}\PYG{n}{runLengthDecoder} \PYG{n}{x}\PYG{p}{))} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{5}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{]}
+                               \PYG{p}{],}
+     \PYG{n}{bgroup} \PYG{l+s}{\PYGZdq{}runLengthDecoderManual\PYGZdq{}} \PYG{p}{[} \PYG{n}{bench} \PYG{l+s}{\PYGZdq{}[1,5]\PYGZdq{}} \PYG{o}{\PYGZdl{}}
+                                       \PYG{n}{nf} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{runLengthDecoderManual} \PYG{n}{x}\PYG{p}{)} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{5}\PYG{p}{],}
+                                       \PYG{n}{bench} \PYG{l+s}{\PYGZdq{}[1,5,2,2,3,3]\PYGZdq{}} \PYG{o}{\PYGZdl{}}
+                                       \PYG{n}{nf} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{runLengthDecoderManual} \PYG{n}{x}\PYG{p}{)}
+                                       \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{5}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{]}
+                                     \PYG{p}{]}
+    \PYG{p}{]}
+
+
+\PYG{n+nf}{split} \PYG{o+ow}{::} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[([}\PYG{k+kt}{Int}\PYG{p}{],} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{])]}
+\PYG{n+nf}{split} \PYG{o+ow}{=} \PYG{o}{\PYGZdl{}}\PYG{p}{(}\PYG{n}{inv} \PYG{k+kt}{\PYGZsq{}(++)}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Simulations}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{n+nf}{freeFallInv} \PYG{o+ow}{::} \PYG{p}{(}\PYG{k+kt}{Height}\PYG{p}{,} \PYG{k+kt}{Velocity}\PYG{p}{,} \PYG{k+kt}{Time}\PYG{p}{,} \PYG{k+kt}{TimeEnd}\PYG{p}{)}
+             \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[(}\PYG{k+kt}{Height}\PYG{p}{,} \PYG{k+kt}{Velocity}\PYG{p}{,} \PYG{k+kt}{Time}\PYG{p}{,} \PYG{k+kt}{TimeEnd}\PYG{p}{)]}
+\PYG{n+nf}{freeFallInv} \PYG{o+ow}{=} \PYG{o}{\PYGZdl{}}\PYG{p}{(}\PYG{n}{inv} \PYG{n}{\PYGZsq{}freeFall}\PYG{p}{)}
+
+\PYG{n+nf}{fallStart} \PYG{o+ow}{::} \PYG{p}{(}\PYG{k+kt}{Height}\PYG{p}{,} \PYG{k+kt}{Velocity}\PYG{p}{,} \PYG{k+kt}{Time}\PYG{p}{,} \PYG{k+kt}{TimeEnd}\PYG{p}{)}
+\PYG{n+nf}{fallStart} \PYG{o+ow}{=} \PYG{p}{((}\PYG{k+kt}{Height} \PYG{l+m+mi}{176}\PYG{p}{),} \PYG{p}{(}\PYG{k+kt}{Velocity} \PYG{l+m+mi}{0}\PYG{p}{),} \PYG{p}{(}\PYG{k+kt}{Time} \PYG{l+m+mi}{0}\PYG{p}{),} \PYG{p}{(}\PYG{k+kt}{TimeEnd} \PYG{l+m+mi}{3}\PYG{p}{))}
+
+\PYG{n+nf}{fallDown} \PYG{o+ow}{::} \PYG{p}{(}\PYG{k+kt}{Height}\PYG{p}{,} \PYG{k+kt}{Velocity}\PYG{p}{,} \PYG{k+kt}{Time}\PYG{p}{,} \PYG{k+kt}{TimeEnd}\PYG{p}{)}
+\PYG{n+nf}{fallDown} \PYG{o+ow}{=} \PYG{n}{freeFall} \PYG{n}{fallStart}
+
+\PYG{n+nf}{fallUp} \PYG{o+ow}{::} \PYG{p}{[(}\PYG{k+kt}{Height}\PYG{p}{,} \PYG{k+kt}{Velocity}\PYG{p}{,} \PYG{k+kt}{Time}\PYG{p}{,} \PYG{k+kt}{TimeEnd}\PYG{p}{)]}
+\PYG{n+nf}{fallUp} \PYG{o+ow}{=} \PYG{n}{take} \PYG{l+m+mi}{5} \PYG{o}{\PYGZdl{}} \PYG{n}{freeFallInv} \PYG{n}{fallDown}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Compressions}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{n+nf}{runLengthDecoder} \PYG{o+ow}{::} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[[}\PYG{k+kt}{Int}\PYG{p}{]]}
+\PYG{n+nf}{runLengthDecoder} \PYG{o+ow}{=} \PYG{o}{\PYGZdl{}}\PYG{p}{(}\PYG{n}{inv} \PYG{n}{\PYGZsq{}runLengthEncoder}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} implemented for benchmarking manual vs automatic generated inverse}
+\PYG{n+nf}{runLengthDecoderManual} \PYG{o+ow}{::} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]}
+\PYG{n+nf}{runLengthDecoderManual} \PYG{k+kt}{[]} \PYG{o+ow}{=} \PYG{k+kt}{[]}
+\PYG{n+nf}{runLengthDecoderManual} \PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o+ow}{=} \PYG{n+ne}{error} \PYG{l+s}{\PYGZdq{}Invalid encoding\PYGZdq{}}
+\PYG{n+nf}{runLengthDecoderManual} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{p}{(}\PYG{n}{y}\PYG{k+kt}{:}\PYG{n}{ys}\PYG{p}{))} \PYG{o+ow}{=} \PYG{p}{(}\PYG{n}{take} \PYG{n}{y} \PYG{o}{\PYGZdl{}} \PYG{n}{repeat} \PYG{n}{x}\PYG{p}{)} \PYG{o}{++} \PYG{n}{runLengthDecoderManual} \PYG{n}{ys}
+
+\PYG{n+nf}{dataToCompress} \PYG{o+ow}{::} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]}
+\PYG{n+nf}{dataToCompress} \PYG{o+ow}{=} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{5}\PYG{p}{]}
+
+\PYG{n+nf}{encoded} \PYG{o+ow}{::} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]}
+\PYG{n+nf}{encoded} \PYG{o+ow}{=}  \PYG{n}{runLengthEncoder} \PYG{n}{dataToCompress}
+
+\PYG{n+nf}{decoded} \PYG{o+ow}{::} \PYG{p}{[[}\PYG{k+kt}{Int}\PYG{p}{]]}
+\PYG{n+nf}{decoded} \PYG{o+ow}{=} \PYG{n}{take} \PYG{l+m+mi}{1} \PYG{o}{\PYGZdl{}} \PYG{n}{runLengthDecoder} \PYG{n}{encoded}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Partial Inverses}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} partial inverse of insertAt fixing the first argument (index)}
+\PYG{n+nf}{removeAt1} \PYG{o+ow}{::} \PYG{k+kt}{Int} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[(}\PYG{k+kt}{Int}\PYG{p}{,} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{])]}
+\PYG{n+nf}{removeAt1} \PYG{o+ow}{=} \PYG{o}{\PYGZdl{}}\PYG{p}{(}\PYG{n}{partialInv} \PYG{n}{\PYGZsq{}insertAt} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{])}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} implemented for benchmarking manual vs automatic generated inverse}
+\PYG{n+nf}{removeAt1Manual} \PYG{o+ow}{::} \PYG{k+kt}{Int} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{(}\PYG{k+kt}{Int}\PYG{p}{,} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{])}
+\PYG{n+nf}{removeAt1Manual} \PYG{k+kr}{\PYGZus{}} \PYG{k+kt}{[]} \PYG{o+ow}{=} \PYG{n+ne}{error} \PYG{l+s}{\PYGZdq{}empty list\PYGZdq{}}
+\PYG{n+nf}{removeAt1Manual} \PYG{l+m+mi}{0} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{xs}\PYG{p}{)}
+\PYG{n+nf}{removeAt1Manual} \PYG{n}{i} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{removeAt1Manual} \PYG{p}{(}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{n}{xs}
+
+\PYG{n+nf}{removeAt1Example} \PYG{o+ow}{::} \PYG{p}{[(}\PYG{k+kt}{Int}\PYG{p}{,} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{])]}
+\PYG{n+nf}{removeAt1Example} \PYG{o+ow}{=} \PYG{p}{(}\PYG{n}{take} \PYG{l+m+mi}{1} \PYG{p}{(}\PYG{n}{removeAt1} \PYG{l+m+mi}{3} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{,}\PYG{l+m+mi}{5}\PYG{p}{]))}
+\end{Verbatim}

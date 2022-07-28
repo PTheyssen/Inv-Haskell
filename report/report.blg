@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: report.aux
+The style file: abbrvnat.bst
+Database file #1: bibliography.bib
+Warning--empty booktitle in Vazou2016LiquidHH
+You've used 12 entries,
+            2773 wiz_defined-function locations,
+            678 strings with 6605 characters,
+and the built_in function-call counts, 6546 in all, are:
+= -- 662
+> -- 284
+< -- 16
++ -- 96
+- -- 84
+* -- 386
+:= -- 895
+add.period$ -- 53
+call.type$ -- 12
+change.case$ -- 64
+chr.to.int$ -- 12
+cite$ -- 25
+duplicate$ -- 401
+empty$ -- 494
+format.name$ -- 106
+if$ -- 1513
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 12
+newline$ -- 85
+num.names$ -- 48
+pop$ -- 133
+preamble$ -- 1
+purify$ -- 52
+quote$ -- 0
+skip$ -- 385
+stack$ -- 0
+substring$ -- 179
+swap$ -- 164
+text.length$ -- 9
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 132
+warning$ -- 1
+while$ -- 47
+width$ -- 0
+write$ -- 193
+(There was 1 warning)

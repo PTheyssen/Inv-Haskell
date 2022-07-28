@@ -1,0 +1,31 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cm}{\PYGZob{}\PYGZhy{}\PYGZsh{} OPTIONS\PYGZus{}GHC \PYGZhy{}fplugin Plugin.InversionPlugin \PYGZsh{}\PYGZhy{}\PYGZcb{}}
+\PYG{c+cm}{\PYGZob{}\PYGZhy{}\PYGZsh{} OPTIONS\PYGZus{}GHC \PYGZhy{}Wno\PYGZhy{}incomplete\PYGZhy{}patterns \PYGZsh{}\PYGZhy{}\PYGZcb{}}
+\PYG{c+cm}{\PYGZob{}\PYGZhy{}\PYGZsh{} OPTIONS\PYGZus{}GHC \PYGZhy{}Wno\PYGZhy{}overlapping\PYGZhy{}patterns \PYGZsh{}\PYGZhy{}\PYGZcb{}}
+\PYG{k+kr}{module} \PYG{n+nn}{Simulation} \PYG{k+kr}{where}
+
+\PYG{k+kr}{import} \PYG{n+nn}{Prelude} \PYG{k}{hiding} \PYG{p}{((}\PYG{o}{++}\PYG{p}{),} \PYG{n+nf}{lookup}\PYG{p}{,} \PYG{k+kt}{Maybe}\PYG{p}{(}\PYG{o}{..}\PYG{p}{),} \PYG{n+nf}{length}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Implementing a simple simulation of free falling objects}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{k+kr}{data} \PYG{k+kt}{Height} \PYG{o+ow}{=} \PYG{k+kt}{Height} \PYG{k+kt}{Int}
+  \PYG{k+kr}{deriving} \PYG{p}{(}\PYG{k+kt}{Show}\PYG{p}{)}
+\PYG{k+kr}{data} \PYG{k+kt}{Velocity} \PYG{o+ow}{=} \PYG{k+kt}{Velocity} \PYG{k+kt}{Int}
+  \PYG{k+kr}{deriving} \PYG{p}{(}\PYG{k+kt}{Show}\PYG{p}{)}
+\PYG{k+kr}{data} \PYG{k+kt}{Time} \PYG{o+ow}{=} \PYG{k+kt}{Time} \PYG{k+kt}{Int}
+  \PYG{k+kr}{deriving} \PYG{p}{(}\PYG{k+kt}{Show}\PYG{p}{)}
+\PYG{k+kr}{data} \PYG{k+kt}{TimeEnd} \PYG{o+ow}{=} \PYG{k+kt}{TimeEnd} \PYG{k+kt}{Int}
+  \PYG{k+kr}{deriving} \PYG{p}{(}\PYG{k+kt}{Show}\PYG{p}{)}
+
+\PYG{n+nf}{freeFall} \PYG{o+ow}{::} \PYG{p}{(}\PYG{k+kt}{Height}\PYG{p}{,} \PYG{k+kt}{Velocity}\PYG{p}{,} \PYG{k+kt}{Time}\PYG{p}{,} \PYG{k+kt}{TimeEnd}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{(}\PYG{k+kt}{Height}\PYG{p}{,} \PYG{k+kt}{Velocity}\PYG{p}{,} \PYG{k+kt}{Time}\PYG{p}{,} \PYG{k+kt}{TimeEnd}\PYG{p}{)}
+\PYG{n+nf}{freeFall} \PYG{n}{current}\PYG{o}{@}\PYG{p}{((}\PYG{k+kt}{Height} \PYG{n}{h}\PYG{p}{),} \PYG{p}{(}\PYG{k+kt}{Velocity} \PYG{n}{v}\PYG{p}{),} \PYG{p}{(}\PYG{k+kt}{Time} \PYG{n}{t}\PYG{p}{),} \PYG{p}{(}\PYG{k+kt}{TimeEnd} \PYG{n}{tEnd}\PYG{p}{))} \PYG{o+ow}{=}
+  \PYG{k+kr}{case} \PYG{n}{t} \PYG{o}{==} \PYG{n}{tEnd} \PYG{k+kr}{of}
+    \PYG{k+kt}{True} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{current}
+    \PYG{k+kt}{False} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{freeFall} \PYG{p}{((}\PYG{k+kt}{Height} \PYG{n}{h\PYGZsq{}}\PYG{p}{),} \PYG{p}{(}\PYG{k+kt}{Velocity} \PYG{n}{v\PYGZsq{}}\PYG{p}{),} \PYG{p}{(}\PYG{k+kt}{Time} \PYG{n}{t\PYGZsq{}}\PYG{p}{),} \PYG{p}{(}\PYG{k+kt}{TimeEnd} \PYG{n}{tEnd}\PYG{p}{))}
+      \PYG{k+kr}{where}
+        \PYG{n}{v\PYGZsq{}} \PYG{o+ow}{=} \PYG{n}{v} \PYG{o}{+} \PYG{l+m+mi}{10}
+        \PYG{n}{h\PYGZsq{}} \PYG{o+ow}{=} \PYG{n}{h} \PYG{o}{\PYGZhy{}} \PYG{n}{v\PYGZsq{}} \PYG{o}{+} \PYG{l+m+mi}{5}
+        \PYG{n}{t\PYGZsq{}} \PYG{o+ow}{=} \PYG{n}{t} \PYG{o}{+} \PYG{l+m+mi}{1}
+\end{Verbatim}

@@ -1,0 +1,90 @@
+\begin{thebibliography}{12}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Abramov and Glück(2000)]{abramov2000universal}
+S.~Abramov and R.~Glück.
+\newblock The universal resolving algorithm: Inverse computation in a
+  functional language.
+\newblock \emph{Mathematics of Program Construction}, page 187–212, 2000.
+\newblock ISSN 1611-3349.
+\newblock \doi{10.1007/10722010_13}.
+
+\bibitem[Abramov et~al.(2007)Abramov, Glück, and Klimov]{abramov2007universal}
+S.~Abramov, R.~Glück, and Y.~Klimov.
+\newblock An universal resolving algorithm for inverse computation of lazy
+  languages.
+\newblock \emph{Lecture Notes in Computer Science}, page 27–40, 2007.
+\newblock \doi{10.1007/978-3-540-70881-0_6}.
+
+\bibitem[de~Moura and Bjørner(2008)]{Moura2008Z3}
+L.~de~Moura and N.~Bjørner.
+\newblock Z3: An efficient smt solver.
+\newblock \emph{Lecture Notes in Computer Science}, page 337–340, 2008.
+\newblock ISSN 1611-3349.
+\newblock \doi{10.1007/978-3-540-78800-3_24}.
+
+\bibitem[Glück and Kawabe(2004)]{gluck2004LR}
+R.~Glück and M.~Kawabe.
+\newblock Derivation of deterministic inverse programs based on lr parsing.
+\newblock \emph{Lecture Notes in Computer Science}, page 291–306, 2004.
+\newblock ISSN 1611-3349.
+\newblock \doi{10.1007/978-3-540-24754-8_21}.
+
+\bibitem[Hanus(2013)]{Hanus2013Curry}
+M.~Hanus.
+\newblock Functional logic programming: From theory to curry.
+\newblock \emph{Lecture Notes in Computer Science}, page 123–168, 2013.
+\newblock ISSN 1611-3349.
+\newblock \doi{10.1007/978-3-642-37651-1_6}.
+
+\bibitem[Marlow et~al.(2013)Marlow, Coens, Brandy, and Purdy]{marlow2013haxl}
+S.~Marlow, J.~Coens, L.~Brandy, and J.~Purdy.
+\newblock The haxl project at facebook.
+\newblock In \emph{Proceedings of the Code Mesh London}, 2013.
+
+\bibitem[Mu et~al.(2004)Mu, Hu, and Takeichi]{mu2004}
+S.-C. Mu, Z.~Hu, and M.~Takeichi.
+\newblock An injective language for reversible computation.
+\newblock \emph{Mathematics of Program Construction}, page 289–313, 2004.
+\newblock ISSN 1611-3349.
+\newblock \doi{10.1007/978-3-540-27764-4_16}.
+
+\bibitem[Sheard and Jones(2002)]{sheard2002template}
+T.~Sheard and S.~P. Jones.
+\newblock Template meta-programming for haskell.
+\newblock In \emph{Proceedings of the 2002 ACM SIGPLAN workshop on Haskell},
+  pages 1--16, 2002.
+
+\bibitem[Teegen et~al.(2021)Teegen, Prott, and Bunkenburg]{teegen2021haskell}
+F.~Teegen, K.-O. Prott, and N.~Bunkenburg.
+\newblock Haskell-1: automatic function inversion in haskell.
+\newblock \emph{Proceedings of the 14th ACM SIGPLAN International Symposium on
+  Haskell}, Aug 2021.
+\newblock \doi{10.1145/3471874.3472982}.
+
+\bibitem[Vazou(2016)]{Vazou2016LiquidHH}
+N.~Vazou.
+\newblock Liquid haskell: Haskell as a theorem prover.
+\newblock 2016.
+
+\bibitem[Wheeler and Needham(1995)]{wheeler1995tea}
+D.~J. Wheeler and R.~M. Needham.
+\newblock Tea, a tiny encryption algorithm.
+\newblock \emph{Lecture Notes in Computer Science}, page 363–366, 1995.
+\newblock ISSN 1611-3349.
+\newblock \doi{10.1007/3-540-60590-8_29}.
+\newblock URL \url{http://dx.doi.org/10.1007/3-540-60590-8_29}.
+
+\bibitem[Yokoyama et~al.(2012)Yokoyama, Axelsen, and
+  Glück]{yokoyama2012towards}
+T.~Yokoyama, H.~B. Axelsen, and R.~Glück.
+\newblock Towards a reversible functional language.
+\newblock \emph{Lecture Notes in Computer Science}, page 14–29, 2012.
+\newblock ISSN 1611-3349.
+\newblock \doi{10.1007/978-3-642-29517-1_2}.
+
+\end{thebibliography}

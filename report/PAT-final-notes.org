@@ -1,0 +1,61 @@
+* Next actions
+** DONE initial error when trying to compile plugin
+<no location info>: warning: [-Wmissed-extra-shared-lib]
+libtinfo.so: cannot open shared object file: No such file or directory
+
+--> fixed by installing libtinfo-dev package
+** TODO Do literature research, broad overview of setting
+- motivation for reversible computing (automatic inversion)!
+  -> approaches to automatic inversion
+- haskells computational model -> allows for inversion?
+  -> introducing logic programming, non-determinism and free variables
+     for automatic inversion
+- look at how monad/ code implements this?
+  -> underlying algorithms idea, what effect/computation is performed
+** TODO Dive deep into theory, start writing theory part of report!
+** 
+** 
+** TODO Create my own project? or use sandbox project?
+** TODO Implement free-fall as a test!
+** TODO Understand Haskell toolchain
+- can I simply create new project and in cabal specify I want
+  the plugin or does the code of plugin need to be in same project?
+
+- GHC plugin
+- cabal project structure
+- installation with stack
+  --> write my own sandbox project and start reimplementing some functions
+
+- try to check if plugin generates valid code  
+** TODO Do Haskell Basics reading
+*** computational model
+*** Monads, main function, project structure
+*** cabal, stack
+*** GHC
+*** GHC plugins
+* Important commands, tricks, 
+** load project: stack repl <project-name>:lib
+- then load main function
+  > :l src/Main.hs
+  which should contain the inverses we defined using template haskell
+** Z3 is used? -> I need to install it?
+* Important concepts
+* Resources
+** understading GHC plugins
+https://mpickering.github.io/plugins.html
+https://gitlab.haskell.org/ghc/ghc/-/wikis/plugins
+https://downloads.haskell.org/~ghc/7.4.1/docs/html/users_guide/compiler-plugins.html
+** Monads
+https://mmhaskell.com/monads
+** Monadic lifting
+https://wiki.haskell.org/Lifting
+https://mmhaskell.com/blog/2022/3/14/does-your-monad-even-lift
+* Implementations
+** Free fall!
+** Compression algorithm
+https://stackoverflow.com/questions/16469410/data-compression-algorithms
+*** Runlength encoding
+*** Huffman tree
+https://www.cprogramming.com/tutorial/computersciencetheory/huffman.html
+https://github.com/TsHristov/Huffman-Compression/blob/master/src/HuffmanTree.hs
+*** DEFLATE https://datatracker.ietf.org/doc/html/rfc1951

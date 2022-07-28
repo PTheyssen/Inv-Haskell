@@ -1,0 +1,59 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cm}{\PYGZob{}\PYGZhy{}\PYGZsh{} OPTIONS\PYGZus{}GHC \PYGZhy{}fplugin Plugin.InversionPlugin \PYGZsh{}\PYGZhy{}\PYGZcb{}}
+\PYG{c+cm}{\PYGZob{}\PYGZhy{}\PYGZsh{} OPTIONS\PYGZus{}GHC \PYGZhy{}Wno\PYGZhy{}incomplete\PYGZhy{}patterns \PYGZsh{}\PYGZhy{}\PYGZcb{}}
+\PYG{c+cm}{\PYGZob{}\PYGZhy{}\PYGZsh{} OPTIONS\PYGZus{}GHC \PYGZhy{}Wno\PYGZhy{}overlapping\PYGZhy{}patterns \PYGZsh{}\PYGZhy{}\PYGZcb{}}
+\PYG{k+kr}{module} \PYG{n+nn}{Compression} \PYG{k+kr}{where}
+
+\PYG{k+kr}{import} \PYG{n+nn}{Prelude} \PYG{k}{hiding} \PYG{p}{((}\PYG{o}{++}\PYG{p}{),} \PYG{n+nf}{map}\PYG{p}{,} \PYG{n+nf}{takeWhile}\PYG{p}{,} \PYG{n+nf}{dropWhile}\PYG{p}{,} \PYG{n+nf}{length}\PYG{p}{,} \PYG{n+nf}{head}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Version without prelude functions:}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{p}{(}\PYG{o}{++}\PYG{p}{)} \PYG{o+ow}{::} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]}
+\PYG{k+kt}{[]} \PYG{o}{++} \PYG{n}{ys} \PYG{o+ow}{=} \PYG{n}{ys}
+\PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{o}{++} \PYG{n}{ys} \PYG{o+ow}{=} \PYG{n}{x} \PYG{k+kt}{:} \PYG{p}{(}\PYG{n}{xs} \PYG{o}{++} \PYG{n}{ys}\PYG{p}{)}
+
+\PYG{n+nf}{map} \PYG{o+ow}{::} \PYG{p}{(}\PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{b}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{n}{b}\PYG{p}{]}
+\PYG{n+nf}{map} \PYG{k+kr}{\PYGZus{}} \PYG{k+kt}{[]}     \PYG{o+ow}{=} \PYG{k+kt}{[]}
+\PYG{n+nf}{map} \PYG{n}{f} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{f} \PYG{n}{x} \PYG{k+kt}{:} \PYG{n}{map} \PYG{n}{f} \PYG{n}{xs}
+
+\PYG{n+nf}{head} \PYG{o+ow}{::} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a}
+\PYG{n+nf}{head} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{k+kr}{\PYGZus{}}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{x}
+\PYG{n+nf}{head} \PYG{k+kt}{[]} \PYG{o+ow}{=} \PYG{n+ne}{error} \PYG{l+s}{\PYGZdq{}bad head\PYGZdq{}}
+
+\PYG{n+nf}{length} \PYG{o+ow}{::} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Int}
+\PYG{n+nf}{length} \PYG{k+kt}{[]} \PYG{o+ow}{=} \PYG{l+m+mi}{0}
+\PYG{n+nf}{length} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{l+m+mi}{1} \PYG{o}{+} \PYG{p}{(}\PYG{n}{length} \PYG{n}{xs}\PYG{p}{)}
+
+\PYG{n+nf}{takeWhile}               \PYG{o+ow}{::} \PYG{p}{(}\PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]}
+\PYG{n+nf}{takeWhile} \PYG{k+kr}{\PYGZus{}} \PYG{k+kt}{[]}          \PYG{o+ow}{=}  \PYG{k+kt}{[]}
+\PYG{n+nf}{takeWhile} \PYG{n}{p} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{k+kr}{case} \PYG{n}{p} \PYG{n}{x} \PYG{k+kr}{of}
+  \PYG{k+kt}{True} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{x} \PYG{k+kt}{:} \PYG{n}{takeWhile} \PYG{n}{p} \PYG{n}{xs}
+  \PYG{k+kt}{False} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{[]}
+
+\PYG{n+nf}{dropWhile}               \PYG{o+ow}{::} \PYG{p}{(}\PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]}
+\PYG{n+nf}{dropWhile} \PYG{k+kr}{\PYGZus{}} \PYG{k+kt}{[]}          \PYG{o+ow}{=}  \PYG{k+kt}{[]}
+\PYG{n+nf}{dropWhile} \PYG{n}{p} \PYG{n}{xs}\PYG{o}{@}\PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs\PYGZsq{}}\PYG{p}{)} \PYG{o+ow}{=} \PYG{k+kr}{case} \PYG{n}{p} \PYG{n}{x} \PYG{k+kr}{of}
+  \PYG{k+kt}{True} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{dropWhile} \PYG{n}{p} \PYG{n}{xs\PYGZsq{}}
+  \PYG{k+kt}{False} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{xs}
+
+\PYG{n+nf}{splitList} \PYG{o+ow}{::} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[[}\PYG{k+kt}{Int}\PYG{p}{]]}
+\PYG{n+nf}{splitList} \PYG{k+kt}{[]} \PYG{o+ow}{=} \PYG{k+kt}{[]}
+\PYG{n+nf}{splitList} \PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o+ow}{=} \PYG{p}{[[}\PYG{n}{x}\PYG{p}{]]}
+\PYG{n+nf}{splitList} \PYG{n}{l}\PYG{o}{@}\PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{k+kr}{\PYGZus{}}\PYG{p}{)} \PYG{o+ow}{=} \PYG{p}{(}\PYG{n}{takeWhile} \PYG{n}{eqX} \PYG{n}{l}\PYG{p}{)} \PYG{k+kt}{:} \PYG{p}{(}\PYG{n}{splitList} \PYG{p}{(}\PYG{n}{dropWhile} \PYG{n}{eqX} \PYG{n}{l}\PYG{p}{))}
+  \PYG{k+kr}{where}
+    \PYG{n}{eqX} \PYG{o+ow}{=} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{y} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{x} \PYG{o}{==} \PYG{n}{y}\PYG{p}{)}
+
+\PYG{n+nf}{mergeLists} \PYG{o+ow}{::} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]}
+\PYG{n+nf}{mergeLists} \PYG{k+kt}{[]} \PYG{k+kt}{[]} \PYG{o+ow}{=} \PYG{k+kt}{[]}
+\PYG{n+nf}{mergeLists} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{p}{(}\PYG{n}{y}\PYG{k+kt}{:}\PYG{n}{ys}\PYG{p}{)} \PYG{o+ow}{=} \PYG{p}{[}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{]} \PYG{o}{++} \PYG{p}{(}\PYG{n}{mergeLists} \PYG{n}{xs} \PYG{n}{ys}\PYG{p}{)}
+\PYG{n+nf}{mergeLists} \PYG{k+kt}{[]} \PYG{n}{y} \PYG{o+ow}{=} \PYG{n}{y}
+\PYG{n+nf}{mergeLists} \PYG{n}{x} \PYG{k+kt}{[]} \PYG{o+ow}{=} \PYG{n}{x}
+
+\PYG{n+nf}{runLengthEncoder} \PYG{o+ow}{::} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]}
+\PYG{n+nf}{runLengthEncoder} \PYG{n}{xs} \PYG{o+ow}{=} \PYG{n}{mergeLists} \PYG{n}{digits} \PYG{n}{times}
+  \PYG{k+kr}{where}
+    \PYG{n}{subLists} \PYG{o+ow}{=} \PYG{n}{splitList} \PYG{n}{xs}
+    \PYG{n}{digits} \PYG{o+ow}{=} \PYG{n}{map} \PYG{n}{head} \PYG{n}{subLists}
+    \PYG{n}{times} \PYG{o+ow}{=} \PYG{n}{map} \PYG{n}{length} \PYG{n}{subLists}
+\end{Verbatim}

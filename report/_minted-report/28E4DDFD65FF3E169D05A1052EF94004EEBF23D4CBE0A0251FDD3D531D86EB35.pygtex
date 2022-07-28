@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{type} \PYG{k+kt}{Height} \PYG{o+ow}{=} \PYG{k+kt}{Int}
+\end{Verbatim}

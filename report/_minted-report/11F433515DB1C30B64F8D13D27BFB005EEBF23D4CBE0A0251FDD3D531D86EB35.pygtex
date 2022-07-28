@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{data} \PYG{k+kt}{Height} \PYG{o+ow}{=} \PYG{k+kt}{Height} \PYG{k+kt}{Int}
+  \PYG{k+kr}{deriving} \PYG{p}{(}\PYG{k+kt}{Show}\PYG{p}{)}
+\end{Verbatim}

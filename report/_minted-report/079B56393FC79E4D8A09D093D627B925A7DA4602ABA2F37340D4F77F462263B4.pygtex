@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{l+s+sAtom}{prolog}\PYG{o}{\PYGZgt{}} \PYG{n+nf}{append}\PYG{p}{(}\PYG{n+nv}{Xs}\PYG{p}{,} \PYG{n+nv}{Ys}\PYG{p}{,} \PYG{p}{[}\PYG{l+m+mi}{17}\PYG{p}{,}\PYG{l+m+mi}{42}\PYG{p}{]).}
+\PYG{n+nv}{Xs} \PYG{o}{=} \PYG{p}{[],} \PYG{n+nv}{Ys} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mi}{17}\PYG{p}{,} \PYG{l+m+mi}{42}\PYG{p}{]} \PYG{p}{;}
+\PYG{n+nv}{Xs} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mi}{17}\PYG{p}{],} \PYG{n+nv}{Ys} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mi}{42}\PYG{p}{]} \PYG{p}{;}
+\PYG{n+nv}{Xs} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mi}{17}\PYG{p}{,} \PYG{l+m+mi}{42}\PYG{p}{],} \PYG{n+nv}{Ys} \PYG{o}{=} \PYG{p}{[]} \PYG{p}{;}
+\PYG{l+s+sAtom}{false}\PYG{p}{.}
+\end{Verbatim}

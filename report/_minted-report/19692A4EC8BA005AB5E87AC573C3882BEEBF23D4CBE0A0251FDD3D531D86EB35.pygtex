@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{insertAt} \PYG{o+ow}{::} \PYG{k+kt}{Int} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Int} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]}
+\PYG{n+nf}{insertAt} \PYG{l+m+mi}{0} \PYG{n}{x} \PYG{n}{xs} \PYG{o+ow}{=} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)}
+\PYG{n+nf}{insertAt} \PYG{n}{i} \PYG{n}{x} \PYG{n}{l}\PYG{o}{@}\PYG{p}{(}\PYG{n}{y}\PYG{k+kt}{:}\PYG{n}{ys}\PYG{p}{)} \PYG{o+ow}{=}
+  \PYG{k+kr}{case} \PYG{n}{i} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{0} \PYG{k+kr}{of}
+    \PYG{k+kt}{True} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n+ne}{error} \PYG{l+s}{\PYGZdq{}invalid index\PYGZdq{}}
+    \PYG{k+kt}{False} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}}
+      \PYG{k+kr}{case} \PYG{n}{i} \PYG{o}{\PYGZgt{}} \PYG{p}{(}\PYG{n}{length} \PYG{n}{l}\PYG{p}{)} \PYG{k+kr}{of}
+        \PYG{k+kt}{True} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n+ne}{error} \PYG{l+s}{\PYGZdq{}invalid index\PYGZdq{}}
+        \PYG{k+kt}{False} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{y} \PYG{k+kt}{:} \PYG{p}{(}\PYG{n}{insertAt} \PYG{p}{(}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{n}{x} \PYG{n}{ys}\PYG{p}{)}
+\end{Verbatim}

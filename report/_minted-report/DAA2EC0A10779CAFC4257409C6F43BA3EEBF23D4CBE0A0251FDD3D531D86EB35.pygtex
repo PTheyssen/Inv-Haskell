@@ -1,0 +1,44 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{module} \PYG{n+nn}{Encryption} \PYG{k+kr}{where}
+
+\PYG{k+kr}{import} \PYG{n+nn}{Prelude} \PYG{k}{hiding} \PYG{p}{((}\PYG{o}{++}\PYG{p}{),} \PYG{n+nf}{map}\PYG{p}{,} \PYG{n+nf}{takeWhile}\PYG{p}{,} \PYG{n+nf}{dropWhile}\PYG{p}{,} \PYG{n+nf}{length}\PYG{p}{,} \PYG{n+nf}{head}\PYG{p}{)}
+
+\PYG{k+kr}{import} \PYG{n+nn}{Data.Bits}
+\PYG{k+kr}{import} \PYG{n+nn}{Data.Word}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Implementing the tiny encryption algorithms by David Wheeler, Roger Needham}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} 128 bit key}
+\PYG{k+kr}{data} \PYG{k+kt}{TEAKey} \PYG{o+ow}{=} \PYG{k+kt}{TEAKey} \PYG{c+cm}{\PYGZob{}\PYGZhy{}\PYGZsh{} UNPACK \PYGZsh{}\PYGZhy{}\PYGZcb{}} \PYG{o}{!}\PYG{k+kt}{Word32} \PYG{c+cm}{\PYGZob{}\PYGZhy{}\PYGZsh{} UNPACK \PYGZsh{}\PYGZhy{}\PYGZcb{}} \PYG{o}{!}\PYG{k+kt}{Word32} \PYG{c+cm}{\PYGZob{}\PYGZhy{}\PYGZsh{} UNPACK \PYGZsh{}\PYGZhy{}\PYGZcb{}} \PYG{o}{!}\PYG{k+kt}{Word32} \PYG{c+cm}{\PYGZob{}\PYGZhy{}\PYGZsh{} UNPACK \PYGZsh{}\PYGZhy{}\PYGZcb{}} \PYG{o}{!}\PYG{k+kt}{Word32}
+  \PYG{k+kr}{deriving} \PYG{p}{(}\PYG{k+kt}{Show}\PYG{p}{)}
+
+
+\PYG{n+nf}{secretKey} \PYG{o+ow}{::} \PYG{k+kt}{TEAKey}
+\PYG{n+nf}{secretKey} \PYG{o+ow}{=} \PYG{p}{(}\PYG{k+kt}{TEAKey}  \PYG{l+m+mh}{0xdeadbeef} \PYG{l+m+mh}{0xdeadbeef} \PYG{l+m+mh}{0xdeadbeef} \PYG{l+m+mh}{0xdeadbeef}\PYG{p}{)}
+
+\PYG{n+nf}{delta} \PYG{o+ow}{::} \PYG{k+kt}{Word32}
+\PYG{n+nf}{delta} \PYG{o+ow}{=} \PYG{l+m+mh}{0x9e3779b9}
+
+\PYG{n+nf}{myData} \PYG{o+ow}{::} \PYG{k+kt}{Word64}
+\PYG{n+nf}{myData} \PYG{o+ow}{=} \PYG{l+m+mh}{0xbadf00000000000d}
+
+\PYG{n+nf}{rounds} \PYG{o+ow}{::} \PYG{k+kt}{Int}
+\PYG{n+nf}{rounds} \PYG{o+ow}{=} \PYG{l+m+mi}{32}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Plugin cannot handle Data.Bits, Data.Word :(}
+\PYG{n+nf}{teaEncrypt} \PYG{o+ow}{::} \PYG{k+kt}{TEAKey} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Word64} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Word64}
+\PYG{n+nf}{teaEncrypt} \PYG{p}{(}\PYG{k+kt}{TEAKey} \PYG{n}{k0} \PYG{n}{k1} \PYG{n}{k2} \PYG{n}{k3}\PYG{p}{)} \PYG{n}{v} \PYG{o+ow}{=} \PYG{n}{doCycle} \PYG{n}{rounds} \PYG{l+m+mi}{0} \PYG{n}{v0} \PYG{n}{v1} \PYG{k+kr}{where}
+  \PYG{n}{v0}\PYG{p}{,} \PYG{n}{v1} \PYG{o+ow}{::} \PYG{k+kt}{Word32}
+  \PYG{n}{v0} \PYG{o+ow}{=} \PYG{n}{fromIntegral} \PYG{n}{v}
+  \PYG{n}{v1} \PYG{o+ow}{=} \PYG{n}{fromIntegral} \PYG{o}{\PYGZdl{}} \PYG{n}{v} \PYG{p}{`}\PYG{n}{shiftR}\PYG{p}{`} \PYG{l+m+mi}{32}
+  \PYG{n}{doCycle} \PYG{o+ow}{::} \PYG{k+kt}{Int} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Word32} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Word32} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Word32} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Word64}
+  \PYG{n}{doCycle} \PYG{l+m+mi}{0} \PYG{k+kr}{\PYGZus{}} \PYG{n}{v0} \PYG{n}{v1} \PYG{o+ow}{=} \PYG{p}{(}\PYG{n}{fromIntegral} \PYG{n}{v1} \PYG{p}{`}\PYG{n}{shiftL}\PYG{p}{`} \PYG{l+m+mi}{32}\PYG{p}{)}
+                      \PYG{o}{.|.} \PYG{p}{(}\PYG{n}{fromIntegral} \PYG{n}{v0} \PYG{o}{.\PYGZam{}.} \PYG{l+m+mh}{0xffffffff}\PYG{p}{)}
+  \PYG{n}{doCycle} \PYG{n}{n} \PYG{n}{sum} \PYG{n}{v0} \PYG{n}{v1} \PYG{o+ow}{=} \PYG{n}{doCycle} \PYG{p}{(}\PYG{n}{n} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{n}{sum\PYGZsq{}} \PYG{n}{v0\PYGZsq{}} \PYG{n}{v1\PYGZsq{}}
+    \PYG{k+kr}{where}
+      \PYG{n}{sum\PYGZsq{}} \PYG{o+ow}{=} \PYG{n}{sum} \PYG{o}{+} \PYG{n}{delta}
+      \PYG{n}{v0\PYGZsq{}} \PYG{o+ow}{=} \PYG{n}{v0} \PYG{o}{+} \PYG{p}{(((}\PYG{n}{v1} \PYG{p}{`}\PYG{n}{shiftL}\PYG{p}{`} \PYG{l+m+mi}{4}\PYG{p}{)} \PYG{o}{+} \PYG{n}{k0}\PYG{p}{)} \PYG{p}{`}\PYG{n}{xor}\PYG{p}{`} \PYG{p}{(}\PYG{n}{v1} \PYG{o}{+} \PYG{n}{sum\PYGZsq{}}\PYG{p}{)} \PYG{p}{`}\PYG{n}{xor}\PYG{p}{`} \PYG{p}{((}\PYG{n}{v1} \PYG{p}{`}\PYG{n}{shiftR}\PYG{p}{`} \PYG{l+m+mi}{5}\PYG{p}{)} \PYG{o}{+} \PYG{n}{k1}\PYG{p}{))}
+      \PYG{n}{v1\PYGZsq{}} \PYG{o+ow}{=} \PYG{n}{v1} \PYG{o}{+} \PYG{p}{(((}\PYG{n}{v0} \PYG{p}{`}\PYG{n}{shiftL}\PYG{p}{`} \PYG{l+m+mi}{4}\PYG{p}{)} \PYG{o}{+} \PYG{n}{k2}\PYG{p}{)} \PYG{p}{`}\PYG{n}{xor}\PYG{p}{`} \PYG{p}{(}\PYG{n}{v0} \PYG{o}{+} \PYG{n}{sum\PYGZsq{}}\PYG{p}{)} \PYG{p}{`}\PYG{n}{xor}\PYG{p}{`} \PYG{p}{((}\PYG{n}{v0} \PYG{p}{`}\PYG{n}{shiftR}\PYG{p}{`} \PYG{l+m+mi}{5}\PYG{p}{)} \PYG{o}{+} \PYG{n}{k3}\PYG{p}{))}
+\end{Verbatim}

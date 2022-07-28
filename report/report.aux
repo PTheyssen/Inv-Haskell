@@ -1,0 +1,120 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\@nameuse{bbl@beforestart}
+\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
+\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
+\global\let\oldnewlabel\newlabel
+\gdef\newlabel#1#2{\newlabelxx{#1}#2}
+\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
+\let\newlabel\oldnewlabel
+\fi}
+\fi}
+\global\let\hyper@last\relax 
+\gdef\HyperFirstAtBeginDocument#1{#1}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{marlow2013haxl}
+\citation{teegen2021haskell}
+\citation{teegen2021haskell}
+\babel@aux{english}{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Motivation}{1}{subsection.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Goals of Work}{1}{subsection.1.2}\protected@file@percent }
+\citation{abramov2000universal}
+\citation{abramov2007universal}
+\citation{yokoyama2012towards}
+\citation{mu2004}
+\citation{gluck2004LR}
+\citation{teegen2021haskell}
+\citation{Hanus2013Curry}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Summary of contributions}{2}{subsection.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Inversion in Functional Languages}{2}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Approach to Automatic Function Inversion in Haskell}{2}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Functional-logic extension of Haskell}{3}{subsection.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Steps of Inversion Framework\relax }}{3}{figure.caption.2}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:inversion-steps}{{1}{3}{Steps of Inversion Framework\relax }{figure.caption.2}{}}
+\newlabel{fig:inversion-steps@cref}{{[figure][1][]1}{[1][3][]3}}
+\citation{sheard2002template}
+\citation{Moura2008Z3}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Example: Inverse Generation for List Concatenation}{4}{subsection.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces  Drawing of example inverse computation: \texttt  {split [17,42]}. At each arrow the value of the next free variable is instantiated to all possible values according to the constructor of the data type. For the list data type this is either [ ] or $(V':V'')$. For the primitive data type Int constraints are used (see \cref  {sec:prim}). Further we see that only computation branches are matched, for which the result of the lifted function is equal to the argument of the inverse function. \relax }}{4}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:inverse-comp}{{2}{4}{Drawing of example inverse computation: \texttt {split [17,42]}. At each arrow the value of the next free variable is instantiated to all possible values according to the constructor of the data type. For the list data type this is either [ ] or $(V':V'')$. For the primitive data type Int constraints are used (see \cref {sec:prim}). Further we see that only computation branches are matched, for which the result of the lifted function is equal to the argument of the inverse function. \relax }{figure.caption.3}{}}
+\newlabel{fig:inverse-comp@cref}{{[figure][2][]2}{[1][4][]4}}
+\citation{Vazou2016LiquidHH}
+\citation{sheard2002template}
+\citation{teegen2021haskell}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Primitive types}{5}{subsection.3.3}\protected@file@percent }
+\newlabel{sec:prim}{{3.3}{5}{Primitive types}{subsection.3.3}{}}
+\newlabel{sec:prim@cref}{{[subsection][3][3]3.3}{[1][4][]5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Partial inverses}{5}{subsection.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Evaluating the GHC Plugin}{5}{section.4}\protected@file@percent }
+\citation{wheeler1995tea}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Experiments}{6}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Free Fall}{6}{subsubsection.4.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}Run Length encoding}{6}{subsubsection.4.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}TEA Tiny encryption algorithm}{6}{subsubsection.4.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Benchmarks}{6}{subsection.4.2}\protected@file@percent }
+\citation{teegen2021haskell}
+\citation{teegen2021haskell}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \small  {\color  {gray!25!black!60} Top:} Results from comparing automatic generated removeAt1 (partial inverse) function with manual written inverse. {\color  {gray!25!black!60} Bottom:} Results from comparing automatic generated run length decoder vs. manual written one. \relax }}{7}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:bench}{{3}{7}{\small {\color {gray!25!black!60} Top:} Results from comparing automatic generated removeAt1 (partial inverse) function with manual written inverse. {\color {gray!25!black!60} Bottom:} Results from comparing automatic generated run length decoder vs. manual written one. \relax }{figure.caption.4}{}}
+\newlabel{fig:bench@cref}{{[figure][3][]3}{[1][6][]7}}
+\bibstyle{abbrvnat}
+\bibdata{bibliography}
+\bibcite{abramov2000universal}{{1}{2000}{{Abramov and Glück}}{{}}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Limitations, Problems encountered}{8}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion}{8}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Further Work}{8}{subsection.5.1}\protected@file@percent }
+\bibcite{abramov2007universal}{{2}{2007}{{Abramov et~al.}}{{Abramov, Glück, and Klimov}}}
+\bibcite{Moura2008Z3}{{3}{2008}{{de~Moura and Bjørner}}{{}}}
+\bibcite{gluck2004LR}{{4}{2004}{{Glück and Kawabe}}{{}}}
+\bibcite{Hanus2013Curry}{{5}{2013}{{Hanus}}{{}}}
+\bibcite{marlow2013haxl}{{6}{2013}{{Marlow et~al.}}{{Marlow, Coens, Brandy, and Purdy}}}
+\bibcite{mu2004}{{7}{2004}{{Mu et~al.}}{{Mu, Hu, and Takeichi}}}
+\bibcite{sheard2002template}{{8}{2002}{{Sheard and Jones}}{{}}}
+\bibcite{teegen2021haskell}{{9}{2021}{{Teegen et~al.}}{{Teegen, Prott, and Bunkenburg}}}
+\bibcite{Vazou2016LiquidHH}{{10}{2016}{{Vazou}}{{}}}
+\bibcite{wheeler1995tea}{{11}{1995}{{Wheeler and Needham}}{{}}}
+\bibcite{yokoyama2012towards}{{12}{2012}{{Yokoyama et~al.}}{{Yokoyama, Axelsen, and Glück}}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Appendix}{10}{appendix.A}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Compression.hs}{10}{subsection.A.1}\protected@file@percent }
+\newlabel{A:comp}{{A.1}{10}{Compression.hs}{subsection.A.1}{}}
+\newlabel{A:comp@cref}{{[subappendix][1][2147483647,1]A.1}{[1][10][]10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Encryption.hs}{11}{subsection.A.2}\protected@file@percent }
+\newlabel{A:encryp}{{A.2}{11}{Encryption.hs}{subsection.A.2}{}}
+\newlabel{A:encryp@cref}{{[subappendix][2][2147483647,1]A.2}{[1][11][]11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Simulation.hs}{12}{subsection.A.3}\protected@file@percent }
+\newlabel{A:sim}{{A.3}{12}{Simulation.hs}{subsection.A.3}{}}
+\newlabel{A:sim@cref}{{[subappendix][3][2147483647,1]A.3}{[1][12][]12}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}PartialInverses.hs}{13}{subsection.A.4}\protected@file@percent }
+\newlabel{A:part_inv}{{A.4}{13}{PartialInverses.hs}{subsection.A.4}{}}
+\newlabel{A:part_inv@cref}{{[subappendix][4][2147483647,1]A.4}{[1][13][]13}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.5}Main.hs}{14}{subsection.A.5}\protected@file@percent }
+\newlabel{A:main}{{A.5}{14}{Main.hs}{subsection.A.5}{}}
+\newlabel{A:main@cref}{{[subappendix][5][2147483647,1]A.5}{[1][13][]14}}
+\gdef\minted@oldcachelist{,
+  default-pyg-prefix.pygstyle,
+  default.pygstyle,
+  079B56393FC79E4D8A09D093D627B925A7DA4602ABA2F37340D4F77F462263B4.pygtex,
+  714C571B299CE3317E2E15CF8B8B1F44EEBF23D4CBE0A0251FDD3D531D86EB35.pygtex,
+  B92BE817C7EB8DFAF00817B8B22EA70DEEBF23D4CBE0A0251FDD3D531D86EB35.pygtex,
+  11FD16DA6A6323737E14F685DF1E26E6824E6F8D8705E657E323307FB7DCF477.pygtex,
+  19692A4EC8BA005AB5E87AC573C3882BEEBF23D4CBE0A0251FDD3D531D86EB35.pygtex,
+  D06BCCD7C82693383A94B11677E183CEEEBF23D4CBE0A0251FDD3D531D86EB35.pygtex,
+  28E4DDFD65FF3E169D05A1052EF94004EEBF23D4CBE0A0251FDD3D531D86EB35.pygtex,
+  11F433515DB1C30B64F8D13D27BFB005EEBF23D4CBE0A0251FDD3D531D86EB35.pygtex,
+  48C503D05C6951AEAAB053BA9FB4D890EEBF23D4CBE0A0251FDD3D531D86EB35.pygtex,
+  DAA2EC0A10779CAFC4257409C6F43BA3EEBF23D4CBE0A0251FDD3D531D86EB35.pygtex,
+  9640E6DD97464B66F28926DCEA55C383EEBF23D4CBE0A0251FDD3D531D86EB35.pygtex,
+  76590FA35FFAC24D70FAE7DD33E6824AEEBF23D4CBE0A0251FDD3D531D86EB35.pygtex,
+  E6C771C3D1DEABE88A55681F1C27959DEEBF23D4CBE0A0251FDD3D531D86EB35.pygtex,
+  4470E081764DBCC810D2CC55CDBE17C4D056FA939DEE1CFB528B6798A1EED084.pygtex,
+  7C4D3C659D0E34E31EEBB81BE406A7A0D056FA939DEE1CFB528B6798A1EED084.pygtex}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.6}Error Messages}{17}{subsection.A.6}\protected@file@percent }
+\newlabel{A:error}{{A.6}{17}{Error Messages}{subsection.A.6}{}}
+\newlabel{A:error@cref}{{[subappendix][6][2147483647,1]A.6}{[1][17][]17}}

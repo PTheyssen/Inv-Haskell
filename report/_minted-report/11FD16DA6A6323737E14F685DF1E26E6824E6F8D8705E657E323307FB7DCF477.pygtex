@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{*}\PYG{k+kt}{Main}\PYG{o}{\PYGZgt{}} \PYG{n}{split} \PYG{p}{[}\PYG{l+m+mi}{17}\PYG{p}{,}\PYG{l+m+mi}{42}\PYG{p}{]}
+\PYG{p}{[(}\PYG{k+kt}{[]}\PYG{p}{,[}\PYG{l+m+mi}{17}\PYG{p}{,}\PYG{l+m+mi}{42}\PYG{p}{]),([}\PYG{l+m+mi}{17}\PYG{p}{],[}\PYG{l+m+mi}{42}\PYG{p}{]),([}\PYG{l+m+mi}{17}\PYG{p}{,}\PYG{l+m+mi}{42}\PYG{p}{],}\PYG{k+kt}{[]}\PYG{p}{)]}
+\end{Verbatim}

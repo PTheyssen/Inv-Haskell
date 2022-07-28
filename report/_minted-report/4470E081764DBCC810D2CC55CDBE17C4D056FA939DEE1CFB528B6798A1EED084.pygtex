@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+/home/pt/repos/inversion\PYGZhy{}plugin/firststeps/src/Compression.hs:1:1: error:
+    No inverse available for: \PYGZdl{}
+  |
+1 | \PYGZob{}\PYGZhy{}\PYGZsh{} OPTIONS\PYGZus{}GHC \PYGZhy{}fplugin Plugin.InversionPlugin \PYGZsh{}\PYGZhy{}\PYGZcb{}
+  | \PYGZca{}
+Failed, no modules loaded.
+\end{Verbatim}

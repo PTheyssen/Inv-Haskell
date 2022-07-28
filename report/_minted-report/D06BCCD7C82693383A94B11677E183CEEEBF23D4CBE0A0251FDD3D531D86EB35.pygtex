@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{removeAt1} \PYG{o+ow}{::} \PYG{k+kt}{Int} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[(}\PYG{k+kt}{Int}\PYG{p}{,} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{])]}
+\PYG{n+nf}{removeAt1} \PYG{o+ow}{=} \PYG{o}{\PYGZdl{}}\PYG{p}{(}\PYG{n}{partialInv} \PYG{n}{\PYGZsq{}insertAt} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{])}
+\end{Verbatim}

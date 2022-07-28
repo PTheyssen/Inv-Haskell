@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{split} \PYG{o+ow}{::} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[([}\PYG{k+kt}{Int}\PYG{p}{],} \PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{])]}
+\PYG{n+nf}{split} \PYG{o+ow}{=} \PYG{o}{\PYGZdl{}}\PYG{p}{(}\PYG{n}{inv} \PYG{k+kt}{\PYGZsq{}(++)}\PYG{p}{)}
+\end{Verbatim}
